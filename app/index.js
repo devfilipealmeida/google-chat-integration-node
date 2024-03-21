@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
 
@@ -11,6 +12,6 @@ const routes = require('./routes/routes')
 
 app.use('/', routes);
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000!');
+app.listen(process.env.PORT, () => {
+    console.log('Server running on port 9000!');
 })
