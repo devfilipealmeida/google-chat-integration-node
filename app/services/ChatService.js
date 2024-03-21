@@ -1,8 +1,7 @@
-const { createMessage } = require("../utils/functions")
-
 class ChatService {
   async getChat(req, res) {
     const event = req.body;
+    let defaultDate = new Date();
     let defaultMsEpoch = defaultDate.getTime();
     if (req.body.type === 'ADDED_TO_SPACE' && req.body.space.type === 'DM') {
       let text = 'Olá, obrigado por me adicionar. A partir de agora vou te auxiliar durante a abertura e visualização de Tickets. Basta me enviar uma mensagem!'
@@ -57,6 +56,10 @@ class ChatService {
         openDialog(event);
       };
 
+      if (event.common.invokedFunction === "openSequentialDialog") {
+        openSequentialDialog(event);
+      };
+
       function openDialog(event) {
         res.json({
           "action_response": {
@@ -70,8 +73,8 @@ class ChatService {
                       "widgets": [
                         {
                           "dateTimePicker": {
-                            "name": "appointment_time",
-                            "label": "Book your appointment at:",
+                            "name": "abertua",
+                            "label": "Abertura",
                             "type": "DATE_AND_TIME",
                             "valueMsEpoch": defaultMsEpoch
                           }
@@ -101,7 +104,7 @@ class ChatService {
                           "buttonList": {
                             "buttons": [
                               {
-                                "text": "Proximo",
+                                "text": "Próximo",
                                 "onClick": {
                                   "action": {
                                     "function": "openSequentialDialog"
@@ -120,6 +123,157 @@ class ChatService {
           }
         });
       };
+      function openSequentialDialog(event) {
+        res.json({
+          "action_response": {
+            "type": "DIALOG",
+            "dialog_action": {
+              "dialog": {
+                "body": {
+                  "sections": [
+                    {
+                      "widgets": [
+                        {
+                          "selectionInput": {
+                            "name": "area_negocio",
+                            "label": "Área de Negócio",
+                            "type": "DROPDOWN",
+                            "items": [
+                              {
+                                "text": "S",
+                                "value": "small",
+                                "selected": false
+                              },
+                              {
+                                "text": "M",
+                                "value": "medium",
+                                "selected": true
+                              },
+                              {
+                                "text": "L",
+                                "value": "large",
+                                "selected": false
+                              },
+                              {
+                                "text": "XL",
+                                "value": "extra_large",
+                                "selected": false
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "selectionInput": {
+                            "type": "MULTI_SELECT",
+                            "label": "HUB",
+                            "name": "hub",
+                            "multiSelectMaxSelectedItems": 3,
+                            "multiSelectMinQueryLength": 1,
+                            "items": [
+                              {
+                                "value": "contact-1",
+                                "text": "Contact 1",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-2",
+                                "text": "Contact 2",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-3",
+                                "text": "Contact 3",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-4",
+                                "text": "Contact 4",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-5",
+                                "text": "Contact 5",
+                                "selected": false
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "selectionInput": {
+                            "name": "categoria",
+                            "label": "Categoria",
+                            "type": "DROPDOWN",
+                            "items": [
+                              {
+                                "value": "contact-1",
+                                "text": "TASY",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-2",
+                                "text": "MV",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-3",
+                                "text": "SAP",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-4",
+                                "text": "Rede/E-mail/Microsoft 365",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-5",
+                                "text": "Sistema Sênior",
+                                "selected": false
+                              },
+                              {
+                                "value": "contact-5",
+                                "text": "Cadastro",
+                                "selected": false
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "textInput": {
+                            "label": "Nº Ticket GLPI(Se houver)",
+                            "type": "SINGLE_LINE",
+                            "name": "glpi"
+                          }
+                        },
+                        {
+                          "buttonList": {
+                            "buttons": [
+                              {
+                                "text": "Submit",
+                                "onClick": {
+                                  "action": {
+                                    "function": "confirmDialogSuccess",
+                                    "parameters": [
+                                      {
+                                        "key": "confirmDialogSuccess",
+                                        "value": "confirmDialogSuccess"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "horizontalAlignment": "END"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        });
+      }
     }
   };
 }
