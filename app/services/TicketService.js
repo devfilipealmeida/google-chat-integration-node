@@ -6,6 +6,23 @@ class TicketService {
         return tickets;
     }
 
+    async getAllByEmail(email) {
+        let text = '';
+        const tickets = await Ticket.findAndCountAll({
+            where: {
+                email_solicitante: email,
+                status: 'Aberto',
+            }
+        });
+
+        if (tickets.count <= 0) {
+            text = 'Não há tickets abertos em seu nome';
+        } else {
+            text = `Você tem ${tickets.count} tickets abertos em seu nome`;
+            return text;;
+        }
+    }
+
     async newTicket(data) {
         const newTicket = await Ticket.create({
             "id": data.id,

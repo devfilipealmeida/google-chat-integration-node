@@ -23,7 +23,7 @@ function initialCard() {
                         "text": "Ver meus Tickets",
                         "onClick": {
                             "action": {
-                                "function": "openDialog",
+                                "function": "openTicketsDialog",
                                 "interaction": "OPEN_DIALOG"
                             }
                         }
@@ -43,6 +43,46 @@ function initialCard() {
         }]
     }
 }
+
+function openTicketsDialog(event) {
+  return {
+    action_response: {
+      type: "DIALOG",
+      dialog_action: {
+        dialog: {
+          body: {
+            sections: [
+              {
+                header: "Seus Tickets",
+                widgets: [
+                  {
+                    textParagraph: {
+                      text: "Você tem 2 Tickets em Aberto"
+                    }
+                  },
+                  {
+                    buttonList: {
+                      buttons: [
+                        {
+                          text: "Ver no App",
+                          onClick: {
+                            action: {
+                              function: "openSequentialDialog"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+};
 
 function openDialog(event) {
     return {
@@ -225,16 +265,10 @@ function openDialog(event) {
                       buttonList: {
                         buttons: [
                           {
-                            text: "Submit",
+                            text: "Enviar",
                             onClick: {
                               action: {
-                                function: "confirmDialogSuccess",
-                                parameters: [
-                                  {
-                                    key: "confirmDialogSuccess",
-                                    value: "confirmDialogSuccess"
-                                  }
-                                ]
+                                function: "receiveDialog",
                               }
                             }
                           }
@@ -253,4 +287,4 @@ function openDialog(event) {
   }
 
 
-module.exports = { initialCard, openDialog, openSequentialDialog };
+module.exports = { initialCard, openDialog, openSequentialDialog, openTicketsDialog };
