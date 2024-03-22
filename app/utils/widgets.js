@@ -140,7 +140,7 @@ function openDialog(event) {
     }
   };
 
-  function openSequentialDialog(event, areaNegocioItems) {
+function openSequentialDialog(event, areaNegocioItems, departamentosItems) {
     try {
       return {
         action_response: {
@@ -157,6 +157,14 @@ function openDialog(event) {
                           label: "Área de Negócio",
                           type: "DROPDOWN",
                           items: areaNegocioItems,
+                        }
+                      },
+                      {
+                        selectionInput: {
+                          name: "departamento",
+                          label: "Departamento",
+                          type: "DROPDOWN",
+                          items: departamentosItems,
                         }
                       },
                       {

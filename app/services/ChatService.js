@@ -1,7 +1,7 @@
 const { initialCard, openDialog, openSequentialDialog, openTicketsDialog } = require('../utils/widgets')
 const { welcomeText } = require('../utils/constants')
 const TicketService = require('../services/TicketService');
-const { fetchAreaNegocioItems } = require('../utils/mainfunctions');
+const { fetchAreaNegocioItems, fetchDepartamentoItems } = require('../utils/mainfunctions');
 
 class ChatService {
   async getChat(req, res) {
@@ -40,7 +40,8 @@ class ChatService {
         try {
 
           const areaNegocioItems = await fetchAreaNegocioItems();
-          const stepTwo = await openSequentialDialog(event, areaNegocioItems);
+          const departamentosItems = await fetchDepartamentoItems();
+          const stepTwo = await openSequentialDialog(event, areaNegocioItems, departamentosItems);
           res.send(stepTwo);
 
         } catch (error) {

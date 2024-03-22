@@ -1,4 +1,5 @@
 const AreaNegocioService = require('../services/AreaNegocioService');
+const DepartamentoService = require('../services/DepartamentoService');
 
 async function fetchAreaNegocioItems() {
   try {
@@ -9,4 +10,13 @@ async function fetchAreaNegocioItems() {
   }
 }
 
-module.exports = { fetchAreaNegocioItems };
+async function fetchDepartamentoItems() {
+  try {
+    const departamentos = await DepartamentoService.getAll();
+    return departamentos;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { fetchAreaNegocioItems, fetchDepartamentoItems };

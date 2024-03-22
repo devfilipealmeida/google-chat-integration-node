@@ -5,7 +5,14 @@ class DepartamentoService {
         const departamentos = await Departamento.findAll({
             attributes: ['Area_Negocio', 'Departamento']
         });
-        return departamentos;
+
+        const items = departamentos.map(departamento => ({
+            text: departamento.Departamento,
+            value: departamento.Departamento,
+            selected: false
+            }));
+    
+            return items;
         }
 }
 

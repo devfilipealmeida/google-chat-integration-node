@@ -11,7 +11,7 @@ class AreaNegocioService {
         }));
 
         return items;
-        }
+    }
 }
 
 module.exports = new AreaNegocioService();
