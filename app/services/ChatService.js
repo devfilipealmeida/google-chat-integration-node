@@ -1,6 +1,7 @@
 const { initialCard, openDialog, openSequentialDialog, openTicketsDialog } = require('../utils/widgets')
 const { welcomeText } = require('../utils/constants')
 const TicketService = require('../services/TicketService');
+const { fetchAreaNegocioItems } = require('../utils/mainfunctions');
 
 class ChatService {
   async getChat(req, res) {
@@ -36,9 +37,19 @@ class ChatService {
       };
 
       if (event.common.invokedFunction === "openSequentialDialog") {
-        const stepTwo = openSequentialDialog(event);
-        res.send(stepTwo);
-      };
+        try {
+
+          const areaNegocioItems = await fetchAreaNegocioItems();
+          const stepTwo = await openSequentialDialog(event, areaNegocioItems);
+          res.send(stepTwo);
+
+        } catch (error) {
+
+          console.error(error);
+          res.status(500).send("Erro ao processar a solicitação");
+          
+        }
+      }
 
       if (event.common.invokedFunction === "receiveDialog") {
         receiveDialog(event);
