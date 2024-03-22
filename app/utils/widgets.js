@@ -1,8 +1,8 @@
 function initialCard() {
     const cardHeader = {
-        "title": "App Tickets",
+        "title": "Helper",
         "subtitle": "Escolha uma opção:",
-        "imageUrl": "https://www.appsheet.com/Content/img/appicons/sales-crm.png",
+        "imageUrl": "https://uploaddeimagens.com.br/images/004/756/786/thumb/Logo_Kora.png?1710514563",
         "imageType": "SQUARE",
     }
 
@@ -168,28 +168,28 @@ function openDialog(event) {
                           multiSelectMinQueryLength: 1,
                           items: [
                             {
-                              value: "contact-1",
-                              text: "Contact 1",
+                              value: "CE",
+                              text: "CE",
                               selected: false
                             },
                             {
-                              value: "contact-2",
-                              text: "Contact 2",
+                              value: "CORPORATIVO",
+                              text: "CORPORATIVO",
                               selected: false
                             },
                             {
-                              value: "contact-3",
-                              text: "Contact 3",
+                              value: "DF-GO",
+                              text: "DF-GO",
                               selected: false
                             },
                             {
-                              value: "contact-4",
-                              text: "Contact 4",
+                              value: "ES",
+                              text: "ES",
                               selected: false
                             },
                             {
-                              value: "contact-5",
-                              text: "Contact 5",
+                              value: "MT-TO",
+                              text: "MT-TO",
                               selected: false
                             }
                           ]
