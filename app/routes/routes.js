@@ -5,6 +5,7 @@ const ChatController = require('../controllers/ChatController');
 const AreaNegocioController = require('../controllers/AreaNegocioController');
 const DepartamentoController = require('../controllers/DepartamentoController');
 const UnidadeController = require('../controllers/UnidadeController');
+const SubcategoriaController = require('../controllers/SubcategoriaController');
 
 router.get('/', (req, res) => TicketController.getTickets(req, res));
 router.post('/', (req, res) => TicketController.createTicket(req, res));
@@ -19,6 +20,9 @@ router.get('/departamentos', (req, res) => DepartamentoController.getAll(req, re
 
 // Unidades
 router.get('/unidades', (req, res) => UnidadeController.getAll(req, res));
+
+//Subcategorias
+router.get('/subcategorias', (req, res) => SubcategoriaController.getAll(req, res));
 
 
 module.exports = router;
