@@ -1,6 +1,7 @@
 const AreaNegocioService = require('../services/AreaNegocioService');
 const DepartamentoService = require('../services/DepartamentoService');
 const UnidadeService = require('../services/UnidadeService');
+const SubcategoriaService = require('../services/SubcategoriaService');
 
 async function fetchAreaNegocioItems() {
   try {
@@ -29,4 +30,13 @@ async function fetchUnidadeItems(hubList) {
   }
 }
 
-module.exports = { fetchAreaNegocioItems, fetchDepartamentoItems, fetchUnidadeItems };
+async function fetchSubcategories(selectedCategory) {
+  try {
+    const unidades = await SubcategoriaService.getAll(selectedCategory);
+    return unidades;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { fetchAreaNegocioItems, fetchDepartamentoItems, fetchUnidadeItems, fetchSubcategories };

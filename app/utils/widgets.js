@@ -101,32 +101,32 @@ function cardAreaNegocio(areaNegocioItems) {
             type: "DROPDOWN",
             items: [
               {
-                value: "contact-1",
+                value: "TASY",
                 text: "TASY",
                 selected: false
               },
               {
-                value: "contact-2",
+                value: "MV",
                 text: "MV",
                 selected: false
               },
               {
-                value: "contact-3",
+                value: "SAP",
                 text: "SAP",
                 selected: false
               },
               {
-                value: "contact-4",
+                value: "Rede/E-mail/Microsoft 365",
                 text: "Rede/E-mail/Microsoft 365",
                 selected: false
               },
               {
-                value: "contact-5",
+                value: "Sistema Sênior",
                 text: "Sistema Sênior",
                 selected: false
               },
               {
-                value: "contact-5",
+                value: "Cadastro",
                 text: "Cadastro",
                 selected: false
               }
@@ -153,6 +153,60 @@ function cardAreaNegocio(areaNegocioItems) {
           cardId: "selectInitialInfo",
           card: {
               header: cardHeader,
+              sections: [cardSections]
+          }
+      }]
+  }
+}
+
+function cardStepTwo(departmentItems, unidadeItems, subcategoriaItems) {
+  const cardSections = {
+      "widgets": [
+        {
+          selectionInput: {
+            name: "Departamento",
+            label: "Departamento",
+            type: "DROPDOWN",
+            items: departmentItems,
+          }
+        },
+        {
+          selectionInput: {
+            type: "MULTI_SELECT",
+            label: "Unidade de Negócio",
+            name: "Unidade de Negócio",
+            multiSelectMaxSelectedItems: 3,
+            multiSelectMinQueryLength: 1,
+            items: unidadeItems
+          }
+        },
+        {
+          selectionInput: {
+            name: "Subcategoria",
+            label: "Subcategoria",
+            type: "DROPDOWN",
+            items: subcategoriaItems
+          }
+        },
+        {
+          buttonList: {
+            buttons: [
+              {
+                text: "Confirmar",
+                onClick: {
+                  action: {
+                    function: "confirmed"
+                  }}
+              }]
+            }
+        }
+    ]
+  }
+
+  return {
+      cardsV2: [{
+          cardId: "cardStepTwo",
+          card: {
               sections: [cardSections]
           }
       }]
@@ -418,4 +472,4 @@ function openSequentialDialog(event, areaNegocioItems) {
   }
 
 
-module.exports = { initialCard, openDialog, openSequentialDialog, openTicketsDialog, cardAreaNegocio };
+module.exports = { initialCard, openDialog, openSequentialDialog, openTicketsDialog, cardAreaNegocio, cardStepTwo };
