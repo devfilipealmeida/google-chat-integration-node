@@ -1,7 +1,6 @@
 const { initialCard, openDialog, openSequentialDialog, openTicketsDialog, cardAreaNegocio } = require('../utils/widgets')
 const { welcomeText } = require('../utils/constants')
-const TicketService = require('../services/TicketService');
-const { fetchAreaNegocioItems, fetchDepartamentoItems } = require('../utils/mainfunctions');
+const { fetchAreaNegocioItems, fetchDepartamentoItems, fetchUnidadeItems } = require('../utils/mainfunctions');
 
 class ChatService {
   async getChat(req, res) {
@@ -36,9 +35,10 @@ class ChatService {
 
       if(event.common.invokedFunction === "confirmed"){
         const selectedAreaNegocio = event.common.formInputs.area_negocio.stringInputs.value[0];
+        const hubList = event.common.formInputs.hub.stringInputs.value;
         const departmentItems = await fetchDepartamentoItems(selectedAreaNegocio);
-
-        console.log(departmentItems)
+        const unidadeItems = await fetchUnidadeItems(hubList);
+        
       }
 
       if(event.common.invokedFunction === "selectDepartament"){
