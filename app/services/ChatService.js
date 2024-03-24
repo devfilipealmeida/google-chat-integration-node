@@ -1,4 +1,4 @@
-const { initialCard, openDialog, openSequentialDialog, openTicketsDialog } = require('../utils/widgets')
+const { initialCard, openDialog, openSequentialDialog, openTicketsDialog, cardAreaNegocio } = require('../utils/widgets')
 const { welcomeText } = require('../utils/constants')
 const TicketService = require('../services/TicketService');
 const { fetchAreaNegocioItems, fetchDepartamentoItems } = require('../utils/mainfunctions');
@@ -8,7 +8,7 @@ class ChatService {
     const event = req.body;
     let defaultDate = new Date();
     let defaultMsEpoch = defaultDate.getTime();
-
+    const areaNegocioItems = await fetchAreaNegocioItems();
 
     if (req.body.type === 'ADDED_TO_SPACE' && req.body.space.type === 'DM') {
 
@@ -24,41 +24,59 @@ class ChatService {
     } else if (event.type === "CARD_CLICKED") {
 
       if(event.common.invokedFunction === "openTicketsDialog") {
-        // const userEmail = event.user.email;
-        // const text = await TicketService.getAllByEmail(userEmail);
 
         const stepReport = openTicketsDialog();
         res.send(stepReport);
       }
 
-      if (event.common.invokedFunction === "openDialog") {
-        const stepOne = openDialog(event);
-        res.send(stepOne);
-      };
+      if(event.common.invokedFunction === "createNewTicket"){
+        const cardArea = await cardAreaNegocio(areaNegocioItems);
+        res.send(cardArea);
+      }
 
-      if (event.common.invokedFunction === "openSequentialDialog") {
-        try {
+      if(event.common.invokedFunction === "confirmed"){
+        const selectedAreaNegocio = event.common.formInputs.area_negocio.stringInputs.value[0];
+        const departmentItems = await fetchDepartamentoItems(selectedAreaNegocio);
 
-          const areaNegocioItems = await fetchAreaNegocioItems();
-          const departamentosItems = await fetchDepartamentoItems();
-          const stepTwo = await openSequentialDialog(event, areaNegocioItems, departamentosItems);
-          res.send(stepTwo);
+        console.log(departmentItems)
+      }
 
-        } catch (error) {
+      if(event.common.invokedFunction === "selectDepartament"){
+        const cardArea = await cardAreaNegocio(areaNegocioItems);
+        res.send(cardArea);
+      }
 
-          console.error(error);
-          res.status(500).send("Erro ao processar a solicitação");
+      // if (event.common.invokedFunction === "openDialog") {
+      //   const stepOne = openDialog(event);
+      //   res.send(stepOne);
+      // };
+
+      // if (event) {
+      //   console.log(event)
+      // };
+
+      // if (event.common.invokedFunction === "openSequentialDialog") {
+      //   try {
+
+      //     const areaNegocioItems = await fetchAreaNegocioItems();
+      //     const stepTwo = await openSequentialDialog(event, areaNegocioItems);
+      //     res.send(stepTwo);
+
+      //   } catch (error) {
+
+      //     console.error(error);
+      //     res.status(500).send("Erro ao processar a solicitação");
           
-        }
-      }
+      //   }
+      // }
 
-      if (event.common.invokedFunction === "receiveDialog") {
-        receiveDialog(event);
-      };
+      // if (event.common.invokedFunction === "receiveDialog") {
+      //   receiveDialog(event);
+      // };
 
-      function receiveDialog(event) {
-        console.log(event.common.formInputs)
-      }
+      // function receiveDialog(event) {
+      //   console.log(event.common.formInputs)
+      // }
     }
   };
 }

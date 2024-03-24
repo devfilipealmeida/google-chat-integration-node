@@ -6,7 +6,7 @@ class AreaNegocioService {
 
         const items = areasNegocio.map(area => ({
         text: area.Area,
-        value: area.id,
+        value: area.Area,
         selected: false
         }));
 

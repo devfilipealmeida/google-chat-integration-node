@@ -14,8 +14,7 @@ function initialCard() {
                         "text": "+ Novo Ticket",
                         "onClick": {
                             "action": {
-                                "function": "openDialog",
-                                "interaction": "OPEN_DIALOG"
+                                "function": "createNewTicket",
                             }
                         }
                     },
@@ -42,6 +41,163 @@ function initialCard() {
             }
         }]
     }
+}
+
+function cardAreaNegocio(areaNegocioItems) {
+  const cardHeader = {
+      "subtitle": "Para o cadastro, vou precisar dessas informações.",
+  }
+
+  const cardSections = {
+      "widgets": [
+        {
+          selectionInput: {
+            name: "area_negocio",
+            label: "Área de Negócio",
+            type: "DROPDOWN",
+            items: areaNegocioItems,
+          }
+        },
+        {
+          selectionInput: {
+            type: "MULTI_SELECT",
+            label: "HUB",
+            name: "hub",
+            multiSelectMaxSelectedItems: 3,
+            multiSelectMinQueryLength: 1,
+            items: [
+              {
+                value: "CE",
+                text: "CE",
+                selected: false
+              },
+              {
+                value: "CORPORATIVO",
+                text: "CORPORATIVO",
+                selected: false
+              },
+              {
+                value: "DF-GO",
+                text: "DF-GO",
+                selected: false
+              },
+              {
+                value: "ES",
+                text: "ES",
+                selected: false
+              },
+              {
+                value: "MT-TO",
+                text: "MT-TO",
+                selected: false
+              }
+            ]
+          }
+        },
+        {
+          selectionInput: {
+            name: "categoria",
+            label: "Categoria",
+            type: "DROPDOWN",
+            items: [
+              {
+                value: "contact-1",
+                text: "TASY",
+                selected: false
+              },
+              {
+                value: "contact-2",
+                text: "MV",
+                selected: false
+              },
+              {
+                value: "contact-3",
+                text: "SAP",
+                selected: false
+              },
+              {
+                value: "contact-4",
+                text: "Rede/E-mail/Microsoft 365",
+                selected: false
+              },
+              {
+                value: "contact-5",
+                text: "Sistema Sênior",
+                selected: false
+              },
+              {
+                value: "contact-5",
+                text: "Cadastro",
+                selected: false
+              }
+            ]
+          }
+        },
+        {
+          buttonList: {
+            buttons: [
+              {
+                text: "Confirmar",
+                onClick: {
+                  action: {
+                    function: "confirmed"
+                  }}
+              }]
+            }
+        }
+    ]
+  }
+
+  return {
+      cardsV2: [{
+          cardId: "selectInitialInfo",
+          card: {
+              header: cardHeader,
+              sections: [cardSections]
+          }
+      }]
+  }
+}
+
+function cardDepartamento(areaNegocioItems) {
+  const cardHeader = {
+      "subtitle": "Selecione um Departamento",
+  }
+
+  const cardSections = {
+      "widgets": [
+        {
+          selectionInput: {
+            name: "departamento",
+            label: "Departamento",
+            type: "DROPDOWN",
+            items: areaNegocioItems,
+          }
+        },
+        {
+          buttonList: {
+            buttons: [
+              {
+                text: "Confirmar",
+                onClick: {
+                  action: {
+                    function: "selectDepartament"
+                  }}
+              }]
+            }
+        }
+    ]
+  }
+
+  return {
+      cardsV2: [{
+          cardId: "addTicket",
+          card: {
+              header: cardHeader,
+              sections: [cardSections]
+          }
+      }]
+  }
 }
 
 function openTicketsDialog(event) {
@@ -140,7 +296,7 @@ function openDialog(event) {
     }
   };
 
-function openSequentialDialog(event, areaNegocioItems, departamentosItems) {
+function openSequentialDialog(event, areaNegocioItems) {
     try {
       return {
         action_response: {
@@ -151,22 +307,6 @@ function openSequentialDialog(event, areaNegocioItems, departamentosItems) {
                 sections: [
                   {
                     widgets: [
-                      {
-                        selectionInput: {
-                          name: "area_negocio",
-                          label: "Área de Negócio",
-                          type: "DROPDOWN",
-                          items: areaNegocioItems,
-                        }
-                      },
-                      {
-                        selectionInput: {
-                          name: "departamento",
-                          label: "Departamento",
-                          type: "DROPDOWN",
-                          items: departamentosItems,
-                        }
-                      },
                       {
                         selectionInput: {
                           type: "MULTI_SELECT",
@@ -278,4 +418,4 @@ function openSequentialDialog(event, areaNegocioItems, departamentosItems) {
   }
 
 
-module.exports = { initialCard, openDialog, openSequentialDialog, openTicketsDialog };
+module.exports = { initialCard, openDialog, openSequentialDialog, openTicketsDialog, cardAreaNegocio };

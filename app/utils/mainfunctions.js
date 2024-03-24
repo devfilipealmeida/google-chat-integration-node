@@ -10,9 +10,9 @@ async function fetchAreaNegocioItems() {
   }
 }
 
-async function fetchDepartamentoItems() {
+async function fetchDepartamentoItems(selectedAreaNegocio) {
   try {
-    const departamentos = await DepartamentoService.getAll();
+    const departamentos = await DepartamentoService.getAll(selectedAreaNegocio);
     return departamentos;
   } catch (error) {
     throw error;

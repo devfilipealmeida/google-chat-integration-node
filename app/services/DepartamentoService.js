@@ -1,8 +1,11 @@
 const { Departamento } = require('../models')
 
 class DepartamentoService {
-    async getAll() {
+    async getAll(selectedAreaNegocio) {
         const departamentos = await Departamento.findAll({
+            where: {
+                Area_Negocio: selectedAreaNegocio,
+            },
             attributes: ['Area_Negocio', 'Departamento']
         });
 
