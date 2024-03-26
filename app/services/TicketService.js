@@ -1,4 +1,5 @@
 const { Ticket } = require('../models')
+const { generateRandomString } = require('../utils/mainfunctions');
 
 class TicketService {
     async getAllTickets() {
@@ -19,29 +20,33 @@ class TicketService {
             text = 'Não há tickets abertos em seu nome';
         } else {
             text = `Você tem ${tickets.count} tickets abertos em seu nome`;
-            return text;;
+            return text;
         }
     }
 
     async newTicket(data) {
+        let id = await generateRandomString(8);
+        while (await Ticket.findOne({
+            where: {
+                id
+            }
+        })) {
+            id = generateRandomString(8);
+        }
+        
         const newTicket = await Ticket.create({
-            "id": data.id,
+            "id": id,
             "status": data.status,
             "abertura": data.abertura,
-            "nome": data.nome,
-            "departamento": data.departamento,
             "email_solicitante": data.email_solicitante,
-            "hub": data.hub,
-            "unidade": data.unidade,
+            "nome": data.nome,
             "categoria": data.categoria,
             "subcategoria": data.subcategoria,
             "assunto": data.assunto,
             "descricao": data.descricao,
-            "novo_usuario": data.novo_usuario,
-            "area_negocio": data.area_negocio,
-            "telefone": data.telefone,
-            "matricula": data.matricula,
-            "matricula_senior": data.matricula_senior
+            "grupo": data.grupo,
+            "matricula": null,
+            "matricula_senior": null,
         });
         return newTicket;
     }

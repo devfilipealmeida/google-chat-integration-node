@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       assunto: DataTypes.STRING(255),
       descricao: DataTypes.STRING(1000),
       anexo: DataTypes.STRING(600),
-      ticket_glpi: DataTypes.STRING(100),
       outros_area_negocio: DataTypes.STRING(150),
       novo_usuario: DataTypes.STRING(255),
       usuario_modelo: DataTypes.STRING(255),
@@ -52,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       st_sla_corrido: DataTypes.STRING(100),
       ct_tempo_corrido: DataTypes.STRING(20),
     }, {
-      tableName: 'tb_chatbot_testes',
+      tableName: 'tb_tickets',
       timestamps: false,
     });
   

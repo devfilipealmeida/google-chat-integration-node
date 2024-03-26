@@ -43,94 +43,63 @@ function initialCard() {
     }
 }
 
-function cardAreaNegocio(areaNegocioItems) {
+function cardAreaNegocio(areaNegocioItems, categoriaItems) {
   const cardHeader = {
       "subtitle": "Para o cadastro, vou precisar dessas informações.",
   }
 
   const cardSections = {
       "widgets": [
-        {
-          selectionInput: {
-            name: "area_negocio",
-            label: "Área de Negócio",
-            type: "DROPDOWN",
-            items: areaNegocioItems,
-          }
-        },
-        {
-          selectionInput: {
-            type: "MULTI_SELECT",
-            label: "HUB",
-            name: "hub",
-            multiSelectMaxSelectedItems: 3,
-            multiSelectMinQueryLength: 1,
-            items: [
-              {
-                value: "CE",
-                text: "CE",
-                selected: false
-              },
-              {
-                value: "CORPORATIVO",
-                text: "CORPORATIVO",
-                selected: false
-              },
-              {
-                value: "DF-GO",
-                text: "DF-GO",
-                selected: false
-              },
-              {
-                value: "ES",
-                text: "ES",
-                selected: false
-              },
-              {
-                value: "MT-TO",
-                text: "MT-TO",
-                selected: false
-              }
-            ]
-          }
-        },
+        // {
+        //   selectionInput: {
+        //     name: "area_negocio",
+        //     label: "Área de Negócio",
+        //     type: "DROPDOWN",
+        //     items: areaNegocioItems,
+        //   }
+        // },
+        // {
+        //   selectionInput: {
+        //     type: "MULTI_SELECT",
+        //     label: "HUB",
+        //     name: "hub",
+        //     multiSelectMaxSelectedItems: 3,
+        //     multiSelectMinQueryLength: 1,
+        //     items: [
+        //       {
+        //         value: "CE",
+        //         text: "CE",
+        //         selected: false
+        //       },
+        //       {
+        //         value: "CORPORATIVO",
+        //         text: "CORPORATIVO",
+        //         selected: false
+        //       },
+        //       {
+        //         value: "DF-GO",
+        //         text: "DF-GO",
+        //         selected: false
+        //       },
+        //       {
+        //         value: "ES",
+        //         text: "ES",
+        //         selected: false
+        //       },
+        //       {
+        //         value: "MT-TO",
+        //         text: "MT-TO",
+        //         selected: false
+        //       }
+        //     ]
+        //   }
+        // },
         {
           selectionInput: {
             name: "categoria",
             label: "Categoria",
             type: "DROPDOWN",
-            items: [
-              {
-                value: "TASY",
-                text: "TASY",
-                selected: false
-              },
-              {
-                value: "MV",
-                text: "MV",
-                selected: false
-              },
-              {
-                value: "SAP",
-                text: "SAP",
-                selected: false
-              },
-              {
-                value: "Rede/E-mail/Microsoft 365",
-                text: "Rede/E-mail/Microsoft 365",
-                selected: false
-              },
-              {
-                value: "Sistema Sênior",
-                text: "Sistema Sênior",
-                selected: false
-              },
-              {
-                value: "Cadastro",
-                text: "Cadastro",
-                selected: false
-              }
-            ]
+            items: categoriaItems,
           }
         },
         {
@@ -159,27 +128,27 @@ function cardAreaNegocio(areaNegocioItems) {
   }
 }
 
-function cardStepTwo(departmentItems, unidadeItems, subcategoriaItems) {
+function cardStepTwo(subcategoriaItems) {
   const cardSections = {
       "widgets": [
-        {
-          selectionInput: {
-            name: "Departamento",
-            label: "Departamento",
-            type: "DROPDOWN",
-            items: departmentItems,
-          }
-        },
-        {
-          selectionInput: {
-            type: "MULTI_SELECT",
-            label: "Unidade de Negócio",
-            name: "Unidade de Negócio",
-            multiSelectMaxSelectedItems: 3,
-            multiSelectMinQueryLength: 1,
-            items: unidadeItems
-          }
-        },
+        // {
+        //   selectionInput: {
+        //     name: "Departamento",
+        //     label: "Departamento",
+        //     type: "DROPDOWN",
+        //     items: departmentItems,
+        //   }
+        // },
+        // {
+        //   selectionInput: {
+        //     type: "MULTI_SELECT",
+        //     label: "Unidade de Negócio",
+        //     name: "unidadeNegócio",
+        //     multiSelectMaxSelectedItems: 3,
+        //     multiSelectMinQueryLength: 1,
+        //     items: unidadeItems
+        //   }
+        // },
         {
           selectionInput: {
             name: "Subcategoria",
@@ -195,7 +164,7 @@ function cardStepTwo(departmentItems, unidadeItems, subcategoriaItems) {
                 text: "Confirmar",
                 onClick: {
                   action: {
-                    function: "confirmed"
+                    function: "confirmedTwo"
                   }}
               }]
             }
@@ -213,19 +182,25 @@ function cardStepTwo(departmentItems, unidadeItems, subcategoriaItems) {
   }
 }
 
-function cardDepartamento(areaNegocioItems) {
+function cardSelectAssunto(assuntoItems) {
   const cardHeader = {
-      "subtitle": "Selecione um Departamento",
-  }
-
+    "subtitle": "Selecione o Assunto e digite uma breve descrição:",
+}
   const cardSections = {
       "widgets": [
         {
           selectionInput: {
-            name: "departamento",
-            label: "Departamento",
+            name: "Assunto",
+            label: "Assunto",
             type: "DROPDOWN",
-            items: areaNegocioItems,
+            items: assuntoItems
+          }
+        },
+        {
+          textInput: {
+            label: "Descrição",
+            type: "SINGLE_LINE",
+            name: "descricao"
           }
         },
         {
@@ -235,7 +210,7 @@ function cardDepartamento(areaNegocioItems) {
                 text: "Confirmar",
                 onClick: {
                   action: {
-                    function: "selectDepartament"
+                    function: "openSalvar",
                   }}
               }]
             }
@@ -245,231 +220,26 @@ function cardDepartamento(areaNegocioItems) {
 
   return {
       cardsV2: [{
-          cardId: "addTicket",
+          cardId: "cardAssunto",
           card: {
-              header: cardHeader,
-              sections: [cardSections]
+            header: cardHeader,
+            sections: [cardSections]
           }
       }]
   }
 }
 
-function openTicketsDialog(event) {
-  return {
-    action_response: {
-      type: "DIALOG",
-      dialog_action: {
-        dialog: {
-          body: {
-            sections: [
-              {
-                header: "Seus Tickets",
-                widgets: [
-                  {
-                    textParagraph: {
-                      text: "Você tem 2 Tickets em Aberto"
-                    }
-                  },
-                  {
-                    buttonList: {
-                      buttons: [
-                        {
-                          text: "Ver no App",
-                          onClick: {
-                            action: {
-                              function: "openSequentialDialog"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
-};
-
-function openDialog(event) {
+function receiveDialog(event) {
     return {
-      action_response: {
+      actionResponse: {
         type: "DIALOG",
-        dialog_action: {
-          dialog: {
-            body: {
-              sections: [
-                {
-                  header: "Novo Ticket",
-                  widgets: [
-                    {
-                      textInput: {
-                        label: "Nome",
-                        type: "SINGLE_LINE",
-                        name: "nome"
-                      }
-                    },
-                    {
-                      textInput: {
-                        label: "Matrícula",
-                        type: "SINGLE_LINE",
-                        name: "matricula"
-                      }
-                    },
-                    {
-                      textInput: {
-                        label: "Telefone",
-                        type: "SINGLE_LINE",
-                        name: "telefone"
-                      }
-                    },
-                    {
-                      buttonList: {
-                        buttons: [
-                          {
-                            text: "Próximo",
-                            onClick: {
-                              action: {
-                                function: "openSequentialDialog"
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
+        dialogAction: {
+          actionStatus: "OK"
         }
       }
-    }
-  };
-
-function openSequentialDialog(event, areaNegocioItems) {
-    try {
-      return {
-        action_response: {
-          type: "DIALOG",
-          dialog_action: {
-            dialog: {
-              body: {
-                sections: [
-                  {
-                    widgets: [
-                      {
-                        selectionInput: {
-                          type: "MULTI_SELECT",
-                          label: "HUB",
-                          name: "hub",
-                          multiSelectMaxSelectedItems: 3,
-                          multiSelectMinQueryLength: 1,
-                          items: [
-                            {
-                              value: "CE",
-                              text: "CE",
-                              selected: false
-                            },
-                            {
-                              value: "CORPORATIVO",
-                              text: "CORPORATIVO",
-                              selected: false
-                            },
-                            {
-                              value: "DF-GO",
-                              text: "DF-GO",
-                              selected: false
-                            },
-                            {
-                              value: "ES",
-                              text: "ES",
-                              selected: false
-                            },
-                            {
-                              value: "MT-TO",
-                              text: "MT-TO",
-                              selected: false
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        selectionInput: {
-                          name: "categoria",
-                          label: "Categoria",
-                          type: "DROPDOWN",
-                          items: [
-                            {
-                              value: "contact-1",
-                              text: "TASY",
-                              selected: false
-                            },
-                            {
-                              value: "contact-2",
-                              text: "MV",
-                              selected: false
-                            },
-                            {
-                              value: "contact-3",
-                              text: "SAP",
-                              selected: false
-                            },
-                            {
-                              value: "contact-4",
-                              text: "Rede/E-mail/Microsoft 365",
-                              selected: false
-                            },
-                            {
-                              value: "contact-5",
-                              text: "Sistema Sênior",
-                              selected: false
-                            },
-                            {
-                              value: "contact-5",
-                              text: "Cadastro",
-                              selected: false
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        textInput: {
-                          label: "Nº Ticket GLPI(Se houver)",
-                          type: "SINGLE_LINE",
-                          name: "glpi"
-                        }
-                      },
-                      {
-                        buttonList: {
-                          buttons: [
-                            {
-                              text: "Enviar",
-                              onClick: {
-                                action: {
-                                  function: "receiveDialog",
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        horizontalAlignment: "END"
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        }
-      };
-    } catch (error) {
-      
-    }
-  }
+    };
+}
 
 
-module.exports = { initialCard, openDialog, openSequentialDialog, openTicketsDialog, cardAreaNegocio, cardStepTwo };
+
+module.exports = { initialCard, cardAreaNegocio, cardStepTwo, cardSelectAssunto, receiveDialog };

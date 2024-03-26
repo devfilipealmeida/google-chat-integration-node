@@ -1,0 +1,20 @@
+{
+    "abertura": "26/03/2024 11:40:16",
+"area_negocio": "ADMINISTRAÇÃO",
+  "assunto": "Ajuste de acesso",
+  "categoria": "MV",
+  "departamento": "Auditório",
+  "descricao": "qq",
+  "email_solicitante": "filipe.almeida@korasaude.com.br",
+  "grupo": "MV - Analista",
+  "hub": "CE",
+  "id": "uiua852",
+  "matricula": ",
+  "matricula_senior": ",
+  "nome": "Filipe Silva Almeida",
+  "novo_usuario": ",
+  "status": "Aberto",
+  "subcategoria": "Gestão de Acesso",
+  "telefone": ",
+  "unidade": "CLIN DE END E CIR DIGESTIVA DR EDGARD NADRA ARY LTDA"
+}
