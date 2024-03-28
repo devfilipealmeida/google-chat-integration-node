@@ -27,6 +27,7 @@ class ChatService {
 
   async getChat(req, res) {
     const event = req.body;
+    console.log(event);
     const areaNegocioItems = await fetchAreaNegocioItems();
 
     if (req.body.type === 'ADDED_TO_SPACE' && req.body.space.type === 'DM') {
@@ -96,6 +97,8 @@ class ChatService {
 
             let text = '';
             const data = await ticketService.newTicket(saveData)
+
+            console.log(data)
 
             text = `O Ticket foi gerado com sucesso para ${event.user.displayName} 📌`
             
